@@ -25,12 +25,11 @@ namespace SawaVideoPlayer
             string file = "";
             if (args.Length > 0) file = args[0];
             string token = getParamter(file, "token");
-            if (token == "")
+            if (token == "" || !ValidateToken(token))
             {
-                token = GenerateToken();
+                Application.Run(new Form1(error: "Unauthorized"));
             }
-            if(ValidateToken(token)) Application.Run(new Form1(link: getParamter(file, "link")));
-            else Application.Run(new Form1(error: "Unauthorized"));
+            else Application.Run(new Form1(link: getParamter(file, "link")));
         }
         public static string getParamter(string source,string paramterName)
         {

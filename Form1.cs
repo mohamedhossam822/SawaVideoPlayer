@@ -41,28 +41,5 @@ namespace SawaVideoPlayer
             }
 
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog dialog = new OpenFileDialog()
-            {
-                ValidateNames = true,
-                Filter = "WMV|*.wmv|WAV|*.wav|MP3|*.mp3|MP4|*.mp4|MKV|*.mkv|All|*.*"
-            })
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    FileInfo file = new FileInfo(dialog.FileName);
-                    axWindowsMediaPlayer1.URL = file.FullName;
-                    axWindowsMediaPlayer1.Ctlcontrols.play();
-                }
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            axWindowsMediaPlayer1.URL = textBox1.Text;
-            axWindowsMediaPlayer1.Ctlcontrols.play();
-        }
     }
 }
