@@ -19,7 +19,6 @@ namespace SawaVideoPlayer
         public static extern uint SetWindowDisplayAffinity(IntPtr hwnd, uint dwAffinity);
         public Form1(string link="",string error="")
         {
-            const uint WDA_NONE = 0;
             const uint WDA_MONITOR = 1;
             SetWindowDisplayAffinity(this.Handle, WDA_MONITOR);
             InitializeComponent();

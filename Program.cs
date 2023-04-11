@@ -43,7 +43,7 @@ namespace SawaVideoPlayer
         }
         private static bool ValidateToken(string token)
         {
-            var mySecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(ConfigurationSettings.AppSettings["Key"]));
+            var mySecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(ConfigurationManager.AppSettings["Key"]));
 
             var tokenHandler = new JwtSecurityTokenHandler();
             try
@@ -53,8 +53,8 @@ namespace SawaVideoPlayer
                     ValidateIssuerSigningKey = true,
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidIssuer = ConfigurationSettings.AppSettings["Issuer"],
-                    ValidAudience = ConfigurationSettings.AppSettings["Audience"],
+                    ValidIssuer = ConfigurationManager.AppSettings["Issuer"],
+                    ValidAudience = ConfigurationManager.AppSettings["Audience"],
                     IssuerSigningKey = mySecurityKey,
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
@@ -68,11 +68,11 @@ namespace SawaVideoPlayer
 
         public static string GenerateToken()
         {
-            string key = ConfigurationSettings.AppSettings["Key"];
+            string key = ConfigurationManager.AppSettings["Key"];
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(ConfigurationSettings.AppSettings["Issuer"],
-                ConfigurationSettings.AppSettings["Audience"],
+            var token = new JwtSecurityToken(ConfigurationManager.AppSettings["Issuer"],
+                ConfigurationManager.AppSettings["Audience"],
                 expires: DateTime.Now.AddMinutes(14*60 * 24),
                 signingCredentials: credentials);
 
