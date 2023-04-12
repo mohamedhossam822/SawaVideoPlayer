@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace SawaVideoPlayer
 {
@@ -17,7 +9,7 @@ namespace SawaVideoPlayer
     {
         [DllImport("user32.dll")]
         public static extern uint SetWindowDisplayAffinity(IntPtr hwnd, uint dwAffinity);
-        public Form1(string link="",string error="")
+        public Form1(string link = "", string error = "")
         {
             const uint WDA_MONITOR = 1;
             SetWindowDisplayAffinity(this.Handle, WDA_MONITOR);
@@ -36,10 +28,24 @@ namespace SawaVideoPlayer
             }
             else
             {
-                axWindowsMediaPlayer1.URL = link;
+                axWindowsMediaPlayer1.URL = Decocode(link);
                 axWindowsMediaPlayer1.Ctlcontrols.play();
             }
 
         }
+        private string Endcode(string originalString)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(originalString);
+            string encodedString = Convert.ToBase64String(bytes);
+            return encodedString;
+        }
+        private string Decocode(string encodedString)
+        {
+            byte[] bytes = Convert.FromBase64String(encodedString);
+            string originalString = Encoding.UTF8.GetString(bytes);
+            return originalString;
+        }
     }
+
+
 }
